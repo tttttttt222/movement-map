@@ -1,0 +1,65 @@
+<template>
+  <div>
+    <!--位置-->
+    <Position/>
+    <!--地图-->
+    <Map/>
+    <!--导航-->
+    <Navbar/>
+    <!--会员-->
+    <div id="children-view" :class="[show ? 'open' : '']">
+      <router-view/>
+    </div>
+  </div>
+</template>
+
+<script>
+  import Map from "./map"
+  import Position from "./postion"
+  import Navbar from "../components/navbar"
+
+  export default {
+    name: "index",
+    components: {Map, Position,Navbar},
+    data() {
+      return {}
+    },
+    computed: {
+      show() {
+        const router = this.$route;
+        return router.name === "User" ? true : false;
+      }
+    },
+    watch: {
+      // "$route": {
+      //   handler(newValue) {
+      //     const routerName = newValue.name;
+      //     this.show = routerName === "User" ? true : false
+      //   }
+      // }
+    }
+
+  }
+</script>
+
+<style lang="scss" scoped>
+  #children-view {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 410px;
+    background-color: #34393f;
+    z-index: 100;
+    display: none;
+    -webkit-transition: all .3s ease 0s;
+    -moz-transition: all .3s ease 0s;
+    -ms-transition: all .3s ease 0s;
+    -o-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+
+    &.open {
+      display: block;
+    }
+  }
+</style>
