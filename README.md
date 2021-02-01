@@ -1,6 +1,6 @@
 # movement-map
 
-> A Vue.js project
+> 地图前端界面
 
 ## Build Setup
 
