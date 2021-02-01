@@ -20,7 +20,7 @@
 <style lang="scss" scoped>
 
   .position-item {
-    width: 470px;
+    width: 70%;
     height: 220px;
     background-color: #fff;
     border-radius: 24px;

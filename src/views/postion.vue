@@ -14,9 +14,15 @@
         <swiper-slide>
           <Positioncard/>
         </swiper-slide>
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
+        <swiper-slide>
+          <Positioncard/>
+        </swiper-slide>
+        <swiper-slide>
+          <Positioncard/>
+        </swiper-slide>
       </swiper>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
     </div>
 
     <!--    <span @click="user">地点列表</span>-->
@@ -34,7 +40,7 @@
     data() {
       return {
         swiperOption: {
-          slidesPerView: 3,
+          slidesPerView: 1,
           spaceBetween: 50,
           pagination: {
             el: ".swiper-pagination",
@@ -45,7 +51,7 @@
             prevEl: ".swiper-button-prev"
           }
         },
-        list:[1,2,3]
+        list: [1, 2, 3]
       }
     },
     methods: {
@@ -65,8 +71,12 @@
     z-index: 11;
   }
 
-  .position-swiper-warp{
-    padding: 100px;
+  .position-swiper-warp {
+    /*padding: 0 155px;*/
+
+    .swiper-container {
+      overflow: initial;
+    }
   }
 
 

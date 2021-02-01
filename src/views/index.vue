@@ -30,6 +30,14 @@
         return router.name === "User" ? true : false;
       }
     },
+    mounted() {
+      document.addEventListener('mouseup',(e)=>{
+         const userCon = document.getElementById("children-view");
+         if(userCon && !userCon.contains(e.target)){
+             this.$router.push("index")
+         }
+      })
+    },
     watch: {
       // "$route": {
       //   handler(newValue) {

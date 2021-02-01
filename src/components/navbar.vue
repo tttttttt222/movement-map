@@ -5,7 +5,7 @@
       <li><i class="icon icon-search"></i></li>
       <li><a href="JavaScript:void(0);" class="select-car-btn">选择车辆</a></li>
       <li><i class="icon icon-location"></i></li>
-      <li><i class="icon icon-user"></i></li>
+      <li><i class="icon icon-user" @click="toUser"></i></li>
     </ul>
   </div>
 </template>
@@ -15,6 +15,11 @@
     name: "navbar",
     data() {
       return {}
+    },
+    methods:{
+      toUser(){
+        this.$router.push("user");
+      }
     }
   }
 </script>
@@ -24,7 +29,7 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 86px;
+    bottom: 10px;
     z-index: 10;
     text-align: center;
 
