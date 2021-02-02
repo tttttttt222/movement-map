@@ -3,7 +3,7 @@
     <div class="user-info">
       <img src="../assets/images/cgdd-logo.jpg"/>
       <div class="meta">
-        <h4 class="name">aa12312312</h4>
+        <h4 class="name">CGDD</h4>
         <span>uuuu</span>
       </div>
     </div>
@@ -23,12 +23,12 @@
 <style lang="scss">
   .user-info {
     display: flex;
-    padding: 84px 0 0 10px;
+    padding: 64px 0 0 5px;
 
     img {
       border-radius: 100%;
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       border: 6px solid #2f343a;
     }
 

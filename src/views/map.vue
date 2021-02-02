@@ -14,7 +14,7 @@
       return {
         map: null,
         zoom: 15,
-        center: [113.666519, 34.752158],
+        center: [121.469959, 31.187304],
         events: {
           // 高德地图原生遮盖物
           init(o) {

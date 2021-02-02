@@ -34,7 +34,7 @@
       document.addEventListener('mouseup',(e)=>{
          const userCon = document.getElementById("children-view");
          if(userCon && !userCon.contains(e.target)){
-             this.$router.push("index")
+             this.$router.push({name: "Index"}).catch(err => {console.log(err)});
          }
       })
     },
@@ -56,7 +56,7 @@
     top: 0;
     bottom: 0;
     right: 0;
-    width: 410px;
+    width: 60%;
     background-color: #34393f;
     z-index: 100;
     display: none;

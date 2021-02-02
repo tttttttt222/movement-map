@@ -1,9 +1,7 @@
 <template>
   <div class="navbar">
     <ul>
-      <li><i class="icon icon-help"></i></li>
       <li><i class="icon icon-search"></i></li>
-      <li><a href="JavaScript:void(0);" class="select-car-btn">选择车辆</a></li>
       <li><i class="icon icon-location"></i></li>
       <li><i class="icon icon-user" @click="toUser"></i></li>
     </ul>
@@ -18,7 +16,7 @@
     },
     methods:{
       toUser(){
-        this.$router.push("user");
+        this.$router.push({name: "User"});
       }
     }
   }
@@ -29,7 +27,7 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 10px;
+    top: 10px;
     z-index: 10;
     text-align: center;
 
@@ -37,7 +35,7 @@
       display: inline-block;
     }
     .icon{
-      margin: 0 17px;
+      margin: 0 16px;
       vertical-align: middle;
       cursor: pointer;
     }
@@ -51,7 +49,7 @@
     line-height: 84px;
     text-align: center;
     color: #FFFFFF;
-    background-color: #34393f;
+    background-color: #409EFF;
     font-size: 26px;
     font-weight: 300;
     margin: 0 17px;
