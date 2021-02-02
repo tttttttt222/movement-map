@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="user-info">
-      <img src="../assets/images/face.png"/>
+      <img src="../assets/images/cgdd-logo.jpg"/>
       <div class="meta">
         <h4 class="name">aa12312312</h4>
         <span>uuuu</span>
