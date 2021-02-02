@@ -12,7 +12,9 @@ VueAMap.initAMapApiLoader({
     "AMap.ToolBar",
     "AMap.MapType",
     "AMap.PolyEditor",
-    "AMap.CircleEditor"
+    "AMap.CircleEditor",
+    "AMap.Geolocation",
+    "AMap.Pixel"
   ],
   // 默认高德 sdk 版本为 1.4.4
   v: "1.4.4",

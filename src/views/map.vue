@@ -1,35 +1,69 @@
 <template>
   <div class="amap-warp">
-    <el-amap vid="amapDemo" :zoom="zoom" :center="center" class="amap-demo" :events="events">
-    </el-amap>
+    <el-amap vid="amapDemo" :amap-manager="amapManager" :zoom="zoom" :center="center" :events="events"
+             class="amap-demo"></el-amap>
   </div>
 </template>
 
 <script>
-  import {lazyAMapApiLoaderInstance} from "vue-amap";
+  import {AMapManager, lazyAMapApiLoaderInstance} from "vue-amap";
+
+  let amapManager = new AMapManager()
 
   export default {
-    name: "index",
+    name: "Amap",
     data() {
+      const _this = this;
       return {
+        amapManager,
         map: null,
-        zoom: 15,
+        zoom: 18,
         center: [121.469959, 31.187304],
         events: {
-          // 高德地图原生遮盖物
           init(o) {
-            let marker = new AMap.Marker({});
-            marker.setMap(o);
+            lazyAMapApiLoaderInstance.load().then(() => {
+              _this.initMap();
+            });
           }
         }
       };
     },
+    methods: {
+      initMap() {
+        this.map = amapManager.getMap();
+        var geolocation = new AMap.Geolocation({
+          enableHighAccuracy: true,//是否使用高精度定位，默认:true
+          timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+          maximumAge: 0,           //定位结果缓存0毫秒，默认：0
+          convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+          showButton: false,        //显示定位按钮，默认：true
+          // buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
+          // buttonOffset: new AMap.Pixel(-50, 0),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+          showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+          showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
+          panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
+          zoomToAccuracy: false,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+          markerOptions:{
+            content:"<img src='aa'/>"
+          }
+        });
+        this.map.addControl(geolocation);
+        geolocation.getCurrentPosition(function (status, result) {
+          if (status == 'complete') {
+            // onComplete(result)
+          } else {
+            // onError(result)
+          }
+        });
+
+      }
+    },
     mounted() {
       // 在定制化程度较高的项目中，只想通过 vue-amap 引入高德地图，而部分实例化的操作直接基于高德地图的sdk完成。需要 lazyAMapApiLoaderInstance
-      lazyAMapApiLoaderInstance.load().then(() => {
-        // your code ...
-        this.map = new AMap.Map("amapContainer", {});
-      });
+      // lazyAMapApiLoaderInstance.load().then(() => {
+      //   // your code ...
+      //   this.map = new AMap.Map("amapContainer", {});
+      // });
     }
   }
 </script>
