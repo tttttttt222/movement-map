@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!--位置-->
-    <Position/>
-    <!--地图-->
-    <Map/>
     <!--导航-->
     <Navbar/>
+    <!--地图-->
+    <Map @dialogVisibleEvent="showPosition"/>
+    <!--位置-->
+    <Position v-show="positionShow"/>
     <!--会员-->
     <div id="children-view" :class="[show ? 'open' : '']">
       <router-view/>
@@ -20,14 +20,23 @@
 
   export default {
     name: "index",
-    components: {Map, Position,Navbar},
+    components: {Map, Position, Navbar},
     data() {
-      return {}
+      return {
+        positionShow: false,
+      }
     },
     computed: {
       show() {
         const router = this.$route;
         return router.name === "User" ? true : false;
+      }
+    },
+    methods: {
+      showPosition() {
+        if (this.positionShow === false) {
+          this.positionShow = true;
+        }
       }
     },
     mounted() {
@@ -68,9 +77,11 @@
 
     &.open {
       display: block;
-      width:60%;
+      width: 60%;
     }
   }
 
-  #children-view :hover {width:60%;}
+  #children-view :hover {
+    width: 60%;
+  }
 </style>

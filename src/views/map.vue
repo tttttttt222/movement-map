@@ -38,20 +38,33 @@
           buttonOffset: new AMap.Pixel(0, 0),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
           zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
           markerOptions: {
-            content: "<img src='../assets/logo.png'/>"
+            content: "<div style='background-color: #2f343a; border-radius: 100%;width: 15px;height: 15px; padding: 5px 0 0 5px'></div>"
           }
         });
         this.map.addControl(geolocation);
         geolocation.getCurrentPosition(function (status, result) {
           if (status == 'complete') {
             // onComplete(result)
-            console.log("定位成功",result);
+            console.log("定位成功", result);
           } else {
             // onError(result)
-            console.log("定位失败",result);
+            console.log("定位失败", result);
           }
         });
 
+        // 创建点覆盖物
+        var marker = new AMap.Marker({
+          position: new AMap.LngLat(121.469959, 31.187304),
+          icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+          offset: new AMap.Pixel(-13, -30)
+        });
+        marker.on('click', this.showPoition);
+        this.map.add(marker);
+
+      },
+      showPoition() {
+        console.log("显示");
+        this.$emit('dialogVisibleEvent', false);
       }
     },
     mounted() {
