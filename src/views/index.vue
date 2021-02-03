@@ -3,7 +3,7 @@
     <!--导航-->
     <Navbar/>
     <!--地图-->
-    <Map @dialogVisibleEvent="showPosition"/>
+    <Map @dialogVisibleEvent="showPosition" @callback="callback"/>
     <!--位置-->
     <Position v-show="positionShow"/>
     <!--会员-->
@@ -37,6 +37,13 @@
         if (this.positionShow === false) {
           this.positionShow = true;
         }
+      },
+      //地图回调
+      callback(params) {
+        params.function && this[params.function](params, data);
+      },
+      loadMap(){
+
       }
     },
     mounted() {

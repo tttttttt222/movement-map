@@ -1,7 +1,11 @@
 <template>
   <div class="amap-warp">
     <el-amap vid="amapDemo" :amap-manager="amapManager" :zoom="zoom" :center="center" :events="events"
-             class="amap-demo"></el-amap>
+             class="amap-demo">
+      <el-amap-circle v-for="item in circle" :key="item.id" :center="item.center" :radius="item.radius"
+                      fillColor="item.color" strokeColor="item.color" strokeOpacity="item.strokeOpacity"
+                      strokeWeight="item.strokeWeight"></el-amap-circle>
+    </el-amap>
   </div>
 </template>
 
@@ -25,29 +29,46 @@
               _this.initMap();
             });
           }
-        }
+        },
+        circle: [{
+          id: 1,
+          center: [121.469959, 31.187304],
+          radius: 4,
+          color: "#34393f",
+          strokeOpacity: "0.2",
+          strokeWeight: "10"
+        }],
       };
     },
     methods: {
       initMap() {
         this.map = amapManager.getMap();
+        // 地图初始化完成
+        this.$emit("callback", {
+          function: "loadMap"
+        })
+        //定位
         var geolocation = new AMap.Geolocation({
           enableHighAccuracy: true,//是否使用高精度定位，默认:true
           timeout: 10000,          //超过10秒后停止定位，默认：5s
+          showButton: false,        //显示定位按钮，默认：true
           buttonPosition: 'LB',    //定位按钮的停靠位置
           buttonOffset: new AMap.Pixel(0, 0),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
           zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+          showMarker: false,        //定位成功后在定位到的位置显示点标记，默认：true
+          showCircle: false,        //定位成功后用圆圈表示定位精度范围，默认：true
           markerOptions: {
-            content: "<div style='background-color: #2f343a; border-radius: 100%;width: 15px;height: 15px; padding: 5px 0 0 5px'></div>"
+            content: ""
           }
         });
         this.map.addControl(geolocation);
-        geolocation.getCurrentPosition(function (status, result) {
+        geolocation.getCurrentPosition((status, result) => {
           if (status == 'complete') {
-            // onComplete(result)
-            console.log("定位成功", result);
+            const lng = result.position.lng;
+            const lat = result.position.lat;
+            this.circle[0].center = [lng, lat];
+            // console.log("定位成功", result);
           } else {
-            // onError(result)
             console.log("定位失败", result);
           }
         });
@@ -63,7 +84,6 @@
 
       },
       showPoition() {
-        console.log("显示");
         this.$emit('dialogVisibleEvent', false);
       }
     },
