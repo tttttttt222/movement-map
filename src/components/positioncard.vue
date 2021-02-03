@@ -95,7 +95,7 @@
     .position-img{
       img{
         height: 100px;
-        width: 200px;
+        width: 100px;
         margin:0 auto;
       }
     }
