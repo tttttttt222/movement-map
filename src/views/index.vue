@@ -31,12 +31,12 @@
       }
     },
     mounted() {
-      document.addEventListener('mouseup',(e)=>{
-         const userCon = document.getElementById("children-view");
-         if(userCon && !userCon.contains(e.target)){
-             this.$router.push({name: "Index"}).catch(err => {console.log(err)});
-         }
-      })
+      // document.addEventListener('mouseup',(e)=>{
+      //    const userCon = document.getElementById("children-view");
+      //    if(userCon && !userCon.contains(e.target)){
+      //        this.$router.push({name: "Index"}).catch(err => {console.log(err)});
+      //    }
+      // })
     },
     watch: {
       // "$route": {
@@ -55,19 +55,22 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    right: 0;
-    width: 60%;
+    left: 0;
+    width: 0%;
     background-color: #34393f;
-    z-index: 100;
+    z-index: 12;
     display: none;
-    -webkit-transition: all .3s ease 0s;
-    -moz-transition: all .3s ease 0s;
-    -ms-transition: all .3s ease 0s;
-    -o-transition: all .3s ease 0s;
-    transition: all .3s ease 0s;
+    -webkit-transition: all .5s ease 0s;
+    -moz-transition: all .5s ease 0s;
+    -ms-transition: all .5s ease 0s;
+    -o-transition: all .5s ease 0s;
+    transition: all .5s ease 0s;
 
     &.open {
       display: block;
+      width:60%;
     }
   }
+
+  #children-view :hover {width:60%;}
 </style>

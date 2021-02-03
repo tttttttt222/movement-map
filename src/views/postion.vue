@@ -37,7 +37,7 @@
           }
         },
         list: [{id: 1, item_name: "龙华中路-攀岩墙", item_type: 3, item_score: 1},
-          {id: 2, item_name: "龙华中路-15步定点", item_type: 1, item_score: 2.5},
+          {id: 2, item_name: "龙华中路-11步定点", item_type: 1, item_score: 2.5},
           {id: 3, item_name: "龙华中路-上墙", item_type: 1, item_score: 3},
           {id: 4, item_name: "龙华中路攀岩墙", item_type: 1, item_score: 4}],
       }
