@@ -5,7 +5,7 @@
     <!--地图-->
     <Map @dialogVisibleEvent="showPosition" @callbackmap="callbackmap"/>
     <!--位置-->
-    <Position v-show="positionShow" :itemList = "itemList"/>
+    <Position v-show="positionShow" :itemList="itemList"/>
     <!--会员-->
     <div id="children-view" :class="[show ? 'open' : '']">
       <router-view/>
@@ -24,7 +24,8 @@
     data() {
       return {
         positionShow: false,
-        itemList:[],
+        itemList: [],
+        locationList: [],
       }
     },
     computed: {
@@ -42,20 +43,29 @@
       },
       //地图回调
       callbackmap(params) {
-        console.log("地图回调",params);
-        // params.function && this[params.function](params, data);
+        params.function && this[params.function](params);
       },
-      // loadMap(data){
-      //
-      // }
+      loadMap() {
+        var centerLocation = {lng: 121.469959, lat: 31.187304};
+        this.queryLocationNear(centerLocation);
+      },
       async queryLocationItemByLid(lid) {
         const {data: res} = await this.$http.post(`item/queryByLid/${lid}`);
         if (res.meta.status !== 1) {
           return this.$message.error('获取地点信息失败');
         }
-        this.itemList = res.data.list;
-        console.log("地点信息",this.itemList);
-      }
+        this.itemList = res.data;
+        console.log("地点信息", this.itemList);
+      },
+      async queryLocationNear(centerLocation) {
+        const {data: res} = await this.$http.post(`location/queryNear`, centerLocation);
+        if (res.meta.status !== 1) {
+          return this.$message.error('获取附近信息失败');
+        }
+        this.locationList = res.data;
+        console.log("附近信息",this.locationList);
+      },
+
     },
     mounted() {
       // document.addEventListener('mouseup',(e)=>{
