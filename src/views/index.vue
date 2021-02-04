@@ -3,9 +3,9 @@
     <!--导航-->
     <Navbar/>
     <!--地图-->
-    <Map @dialogVisibleEvent="showPosition" @callback="callback"/>
+    <Map @dialogVisibleEvent="showPosition" @callbackmap="callbackmap"/>
     <!--位置-->
-    <Position v-show="positionShow"/>
+    <Position v-show="positionShow" :itemList = "itemList"/>
     <!--会员-->
     <div id="children-view" :class="[show ? 'open' : '']">
       <router-view/>
@@ -24,6 +24,7 @@
     data() {
       return {
         positionShow: false,
+        itemList:[],
       }
     },
     computed: {
@@ -37,13 +38,23 @@
         if (this.positionShow === false) {
           this.positionShow = true;
         }
+        this.queryLocationItemByLid(1);
       },
       //地图回调
-      callback(params) {
-        params.function && this[params.function](params, data);
+      callbackmap(params) {
+        console.log("地图回调",params);
+        // params.function && this[params.function](params, data);
       },
-      loadMap(){
-
+      // loadMap(data){
+      //
+      // }
+      async queryLocationItemByLid(lid) {
+        const {data: res} = await this.$http.post(`item/queryByLid/${lid}`);
+        if (res.meta.status !== 1) {
+          return this.$message.error('获取地点信息失败');
+        }
+        this.itemList = res.data.list;
+        console.log("地点信息",this.itemList);
       }
     },
     mounted() {

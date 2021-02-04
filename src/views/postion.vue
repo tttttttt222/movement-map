@@ -1,8 +1,8 @@
 <template>
   <div class="position-warp">
     <div class="position-swiper-warp">
-      <swiper class="swiper" :options="swiperOption">
-        <swiper-slide v-for="item in list" :key="item.id">
+      <swiper class="swiper" :options="swiperOption" v-if="awesomeData.length>0">
+        <swiper-slide v-for="item in awesomeData" :key="item.id">
           <Positioncard :pos-data="item"/>
         </swiper-slide>
       </swiper>
@@ -22,6 +22,7 @@
   export default {
     name: "position",
     components: {Swiper, SwiperSlide, Positioncard},
+    props:{itemList : Array},
     data() {
       return {
         swiperOption: {
@@ -36,16 +37,18 @@
             prevEl: ".swiper-button-prev"
           }
         },
-        list: [{id: 1, item_name: "龙华中路-攀岩墙", item_type: 3, item_score: 1},
-          {id: 2, item_name: "龙华中路-11步定点", item_type: 1, item_score: 2.5},
-          {id: 3, item_name: "龙华中路-上墙", item_type: 1, item_score: 3},
-          {id: 4, item_name: "龙华中路攀岩墙", item_type: 1, item_score: 4}],
+        awesomeData:this.itemList,
+        // itemList: [{id: 1, item_name: "龙华中路-攀岩墙", item_type: 3, item_score: 1},
+        //   {id: 2, item_name: "龙华中路-11步定点", item_type: 1, item_score: 2.5},
+        //   {id: 3, item_name: "龙华中路-上墙", item_type: 1, item_score: 3},
+        //   {id: 4, item_name: "龙华中路攀岩墙", item_type: 1, item_score: 4}],
       }
     },
     methods: {
-      user() {
-        this.$router.push({name: "User"})
-      }
+
+    },
+    mounted() {
+      console.log("swiper初始化完成");
     }
   }
 </script>

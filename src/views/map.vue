@@ -2,9 +2,9 @@
   <div class="amap-warp">
     <el-amap vid="amapDemo" :amap-manager="amapManager" :zoom="zoom" :center="center" :events="events"
              class="amap-demo">
-      <el-amap-circle v-for="item in circle" :key="item.id" :center="item.center" :radius="item.radius"
-                      fillColor="item.color" strokeColor="item.color" strokeOpacity="item.strokeOpacity"
-                      strokeWeight="item.strokeWeight"></el-amap-circle>
+      <el-amap-circle v-for="item in circle" :key="item.id" :center="item.center" :radius="item.radius" :editable="false"
+                      :fillColor="item.color" :strokeColor="item.color" :strokeOpacity="item.strokeOpacity"
+                      :strokeWeight="item.strokeWeight"></el-amap-circle>
     </el-amap>
   </div>
 </template>
@@ -21,7 +21,7 @@
       return {
         amapManager,
         map: null,
-        zoom: 18,
+        zoom: 15,
         center: [121.469959, 31.187304],
         events: {
           init(o) {
@@ -33,10 +33,10 @@
         circle: [{
           id: 1,
           center: [121.469959, 31.187304],
-          radius: 4,
+          radius: 50,
           color: "#34393f",
-          strokeOpacity: "0.2",
-          strokeWeight: "10"
+          strokeOpacity: 0.2,
+          strokeWeight: 30
         }],
       };
     },
@@ -44,7 +44,7 @@
       initMap() {
         this.map = amapManager.getMap();
         // 地图初始化完成
-        this.$emit("callback", {
+        this.$emit("callbackmap", {
           function: "loadMap"
         })
         //定位
@@ -55,11 +55,11 @@
           buttonPosition: 'LB',    //定位按钮的停靠位置
           buttonOffset: new AMap.Pixel(0, 0),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
           zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
-          showMarker: false,        //定位成功后在定位到的位置显示点标记，默认：true
+          showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
           showCircle: false,        //定位成功后用圆圈表示定位精度范围，默认：true
-          markerOptions: {
-            content: ""
-          }
+          // markerOptions: {
+          //   content: ""
+          // }
         });
         this.map.addControl(geolocation);
         geolocation.getCurrentPosition((status, result) => {
@@ -69,7 +69,7 @@
             this.circle[0].center = [lng, lat];
             // console.log("定位成功", result);
           } else {
-            console.log("定位失败", result);
+            this.$message.error('定位失败');
           }
         });
 
