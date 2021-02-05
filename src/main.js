@@ -8,6 +8,7 @@ import "./plugin/aMap";
 import "./styles/main.scss";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import store from './plugin/vuexConfig'
 
 Vue.use(ElementUI);
 axios.defaults.baseURL = 'http://127.0.0.1:8788/movement/front/';
@@ -23,5 +24,6 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
