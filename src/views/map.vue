@@ -12,7 +12,8 @@
 
 <script>
   import {AMapManager, lazyAMapApiLoaderInstance} from "vue-amap";
-  import {selfLocation} from "../plugin/location";
+  import {SelfLocation} from "../plugin/location";
+  import location from "../plugin/locationVuex";
 
   let amapManager = new AMapManager()
 
@@ -50,12 +51,7 @@
           function: "loadMap"
         })
         //定位
-        selfLocation({
-          map: this.map,
-          onComplete: (val) => this.onComplete(val),
-          onError: (val) => this.onError(val),
-        });
-
+        this.selfLocation();
 
         // 创建点覆盖物
         var marker = new AMap.Marker({
@@ -67,24 +63,31 @@
         this.map.add(marker);
 
       },
-      onComplete(data){
+      onComplete(data) {
         const lng = data.position.lng;
         const lat = data.position.lat;
         this.circle[0].center = [lng, lat];
       },
-      onError(data){
+      onError(data) {
         this.$message.error('定位失败');
       },
       showPoition() {
         this.$emit('dialogVisibleEvent', false);
+      },
+      selfLocation() {  //自身定位
+        SelfLocation({
+          map: this.map,
+          onComplete: (val) => this.onComplete(val),
+          onError: (val) => this.onError(val),
+        });
       }
     },
     mounted() {
-      // 在定制化程度较高的项目中，只想通过 vue-amap 引入高德地图，而部分实例化的操作直接基于高德地图的sdk完成。需要 lazyAMapApiLoaderInstance
-      // lazyAMapApiLoaderInstance.load().then(() => {
-      //   // your code ...
-      //   this.map = new AMap.Map("amapContainer", {});
-      // });
+    },
+    watch: {
+      "$store.state.location.selfLocation"(val) {
+        this.selfLocation();
+      }
     }
   }
 </script>

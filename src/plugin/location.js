@@ -1,6 +1,6 @@
 let geolocation = null;
 
-export function selfLocation(params) { //(map"")
+export function SelfLocation(params) { //(map"")
 
   //定位
   if (!geolocation) {
@@ -33,10 +33,10 @@ export function selfLocation(params) { //(map"")
 
   geolocation.getCurrentPosition();
 
-  if(params.onComplete && typeof params.onComplete == 'function'){
+  if (params.onComplete && typeof params.onComplete == 'function') {
     AMap.event.addListener(geolocation, 'complete', params.onComplete);
   }
-  if(params.onError && typeof params.onError == 'function') {
+  if (params.onError && typeof params.onError == 'function') {
     AMap.event.addListener(geolocation, 'error', params.onError);
   }
 
