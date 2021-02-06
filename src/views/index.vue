@@ -3,9 +3,9 @@
     <!--导航-->
     <Navbar/>
     <!--地图-->
-    <Map @dialogVisibleEvent="showPosition" @callbackmap="callbackmap"/>
+    <Map ref="map" @callbackmap="callbackmap"/>
     <!--位置-->
-    <Position v-show="positionShow" :itemList="itemList"/>
+    <Position :itemList="itemList"/>
     <!--会员-->
     <div id="children-view" :class="[show ? 'open' : '']">
       <router-view/>
@@ -23,7 +23,6 @@
     components: {Map, Position, Navbar},
     data() {
       return {
-        positionShow: false,
         itemList: [],
         locationList: [],
       }
@@ -35,12 +34,6 @@
       }
     },
     methods: {
-      showPosition() {
-        if (this.positionShow === false) {
-          this.positionShow = true;
-        }
-        this.queryLocationItemByLid(1);
-      },
       //地图回调
       callbackmap(params) {
         params.function && this[params.function](params);
@@ -49,6 +42,7 @@
         var centerLocation = {lng: 121.469959, lat: 31.187304};
         this.queryLocationNear(centerLocation);
       },
+      //一步获取数据
       async queryLocationItemByLid(lid) {
         const {data: res} = await this.$http.post(`item/queryByLid/${lid}`);
         if (res.meta.status !== 1) {
@@ -63,7 +57,14 @@
           return this.$message.error('获取附近信息失败');
         }
         this.locationList = res.data;
-        console.log("附近信息",this.locationList);
+        console.log("附近信息", this.locationList);
+        this.locationList.forEach(item => {
+          item.position = [item.lng, item.lat];
+          item.content = "<img src='" + require('@/assets/logo.png') + "'>";
+          item.offset = [-35, -60];
+        });
+        //地图方法
+        this.$ref.map.positionNearData(this.locationList);
       },
 
     },

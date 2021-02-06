@@ -6,6 +6,9 @@
                       :editable="false"
                       :fillColor="item.color" :strokeColor="item.color" :strokeOpacity="item.strokeOpacity"
                       :strokeWeight="item.strokeWeight"></el-amap-circle>
+      <!--地点位置坐标-->
+      <el-amap-marker v-for="(item, index) in nearMarkers" :key="item.id" :position="item.position" :events="item.events"
+                      :content="content" :vid="index"></el-amap-marker>
     </el-amap>
   </div>
 </template>
@@ -41,6 +44,12 @@
           strokeOpacity: 0.2,
           strokeWeight: 30
         }],
+        nearMarkers: [{
+          id: 1,
+          content: "<img src='" + require('@/assets/logo.png') + "'>",
+          offset: [-35, -60],
+          position: [121.469959, 31.187304]
+        }],
       };
     },
     methods: {
@@ -54,13 +63,13 @@
         this.selfLocation();
 
         // 创建点覆盖物
-        var marker = new AMap.Marker({
-          position: new AMap.LngLat(121.469959, 31.187304),
-          icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-          offset: new AMap.Pixel(-13, -30)
-        });
-        marker.on('click', this.showPoition);
-        this.map.add(marker);
+        // var marker = new AMap.Marker({
+        //   position: new AMap.LngLat(121.469959, 31.187304),
+        //   icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+        //   offset: new AMap.Pixel(-13, -30)
+        // });
+        // marker.on('click', this.showPoition);
+        // this.map.add(marker);
 
       },
       onComplete(data) {
@@ -70,9 +79,6 @@
       },
       onError(data) {
         this.$message.error('定位失败');
-      },
-      showPoition() {
-        this.$emit('dialogVisibleEvent', false);
       },
       selfLocation() {  //自身定位
         SelfLocation({
@@ -88,6 +94,9 @@
       "$store.state.location.selfLocation"(val) {
         this.selfLocation();
       }
+    },
+    positionNearData(data){
+      this.nearMarkers=data;
     }
   }
 </script>
