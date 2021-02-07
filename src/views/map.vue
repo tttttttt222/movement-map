@@ -7,12 +7,11 @@
                       :fillColor="item.color" :strokeColor="item.color" :strokeOpacity="item.strokeOpacity"
                       :strokeWeight="item.strokeWeight"></el-amap-circle>
       <!--地点位置坐标-->
-      <el-amap-marker v-for="(item, index) in nearMarkers" :key="'near'+item.id" :position="item.position"
-                      :events="item.events" :offset="item.offset"
+      <el-amap-marker v-for="(item, index) in nearMarkers" :key="'near'+item.id" :position="item.position" :offset="item.offset"
                       :content="item.content" :vid="index"></el-amap-marker>
       <!--文字-->
-      <el-amap-text v-for="item in nearMarkers" :key="'text'+item.id" :text="item.itemCount" :offset="item.textOffset"
-                    :position="item.position" textAlign="center"></el-amap-text>
+      <el-amap-marker v-for="item in nearMarkers" :key="'text'+item.id" :content="item.textContent" :offset="item.textOffset"
+                    :position="item.position" :events="item.events" :extData="item"></el-amap-marker>
     </el-amap>
   </div>
 </template>

@@ -5,7 +5,7 @@
     <!--地图-->
     <Map ref="map" @callbackmap="callbackmap"/>
     <!--位置-->
-    <Position :itemList="itemList"/>
+    <Position ref="position"/>
     <!--会员-->
     <div id="children-view" :class="[show ? 'open' : '']">
       <router-view/>
@@ -42,7 +42,7 @@
         var centerLocation = {lng: 121.469959, lat: 31.187304};
         this.queryLocationNear(centerLocation);
       },
-      //一步获取数据
+      //地点具体获取数据
       async queryLocationItemByLid(lid) {
         const {data: res} = await this.$http.post(`item/queryByLid/${lid}`);
         if (res.meta.status !== 1) {
@@ -50,6 +50,7 @@
         }
         this.itemList = res.data;
         console.log("地点信息", this.itemList);
+        this.$refs.position.solvePositionData(this.itemList);
       },
       //附近信息
       async queryLocationNear(centerLocation) {
@@ -64,6 +65,13 @@
           item.content = "<img src='" + require('../assets/images/position-marker.png') + "'>";
           item.offset = [-30, -60];
           item.textOffset = [-5, -36];
+          item.textContent = `<div style="width: 50px;font-size=20px;color=#FFF;background-color: red";text-align:center>${item.itemCount}</div>`;
+          item.events = {
+            click: (e) => {
+              const data = e.target.getExtData();
+              this.queryLocationItemByLid(data.id);
+            }
+          }
         });
         //地图方法
         this.$refs.map.positionNearData(this.locationList);
