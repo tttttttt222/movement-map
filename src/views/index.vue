@@ -60,11 +60,12 @@
         console.log("附近信息", this.locationList);
         this.locationList.forEach(item => {
           item.position = [item.lng, item.lat];
-          item.content = "<img src='" + require('@/assets/logo.png') + "'>";
-          item.offset = [-35, -60];
+          item.content = "<img src='" + require('../assets/images/position-marker.png') + "'>";
+          item.offset = [-30, -60];
+          item.textOffset = [-4, -36];
         });
         //地图方法
-        this.$ref.map.positionNearData(this.locationList);
+        this.$refs.map.positionNearData(this.locationList);
       },
 
     },

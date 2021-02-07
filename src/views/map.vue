@@ -2,13 +2,17 @@
   <div class="amap-warp">
     <el-amap vid="amapDemo" :amap-manager="amapManager" :zoom="zoom" :center="center" :events="events"
              class="amap-demo">
-      <el-amap-circle v-for="item in circle" :key="item.id" :center="item.center" :radius="item.radius"
+      <el-amap-circle v-for="item in circle" :key="'circle'+item.id" :center="item.center" :radius="item.radius"
                       :editable="false"
                       :fillColor="item.color" :strokeColor="item.color" :strokeOpacity="item.strokeOpacity"
                       :strokeWeight="item.strokeWeight"></el-amap-circle>
       <!--地点位置坐标-->
-      <el-amap-marker v-for="(item, index) in nearMarkers" :key="item.id" :position="item.position" :events="item.events"
-                      :content="content" :vid="index"></el-amap-marker>
+      <el-amap-marker v-for="(item, index) in nearMarkers" :key="'near'+item.id" :position="item.position"
+                      :events="item.events" :offset="item.offset"
+                      :content="item.content" :vid="index"></el-amap-marker>
+      <!--文字-->
+      <el-amap-text v-for="item in nearMarkers" :key="'text'+item.id" :text="item.itemCount" :offset="item.textOffset"
+                    :position="item.position"></el-amap-text>
     </el-amap>
   </div>
 </template>
@@ -27,7 +31,7 @@
       return {
         amapManager,
         map: null,
-        zoom: 15,
+        zoom: 10,
         center: [121.469959, 31.187304],
         events: {
           init(o) {
@@ -37,22 +41,25 @@
           }
         },
         circle: [{
-          id: 1,
+          id: 0,
           center: [121.469959, 31.187304],
-          radius: 50,
-          color: "#34393f",
+          radius: 90,
+          color: "#409EFF",
           strokeOpacity: 0.2,
           strokeWeight: 30
         }],
         nearMarkers: [{
-          id: 1,
-          content: "<img src='" + require('@/assets/logo.png') + "'>",
-          offset: [-35, -60],
-          position: [121.469959, 31.187304]
+          id: 0,
+          content: "<img src='" + require('../assets/images/position-marker.png') + "'>",
+          offset: [0, 0],
+          textOffset: [0, 0],
+          position: [121.469959, 31.187304],
+          itemCount: '0'
         }],
       };
     },
     methods: {
+
       initMap() {
         this.map = amapManager.getMap();
         // 地图初始化完成
@@ -86,7 +93,11 @@
           onComplete: (val) => this.onComplete(val),
           onError: (val) => this.onError(val),
         });
+      },
+      positionNearData(data) {
+        this.nearMarkers = data;
       }
+
     },
     mounted() {
     },
@@ -94,9 +105,6 @@
       "$store.state.location.selfLocation"(val) {
         this.selfLocation();
       }
-    },
-    positionNearData(data){
-      this.nearMarkers=data;
     }
   }
 </script>
