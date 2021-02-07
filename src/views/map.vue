@@ -12,7 +12,7 @@
                       :content="item.content" :vid="index"></el-amap-marker>
       <!--文字-->
       <el-amap-text v-for="item in nearMarkers" :key="'text'+item.id" :text="item.itemCount" :offset="item.textOffset"
-                    :position="item.position"></el-amap-text>
+                    :position="item.position" textAlign="center"></el-amap-text>
     </el-amap>
   </div>
 </template>

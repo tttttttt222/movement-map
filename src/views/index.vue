@@ -51,6 +51,7 @@
         this.itemList = res.data;
         console.log("地点信息", this.itemList);
       },
+      //附近信息
       async queryLocationNear(centerLocation) {
         const {data: res} = await this.$http.post(`location/queryNear`, centerLocation);
         if (res.meta.status !== 1) {
@@ -62,7 +63,7 @@
           item.position = [item.lng, item.lat];
           item.content = "<img src='" + require('../assets/images/position-marker.png') + "'>";
           item.offset = [-30, -60];
-          item.textOffset = [-4, -36];
+          item.textOffset = [-5, -36];
         });
         //地图方法
         this.$refs.map.positionNearData(this.locationList);
