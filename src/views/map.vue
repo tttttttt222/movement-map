@@ -3,9 +3,8 @@
     <el-amap vid="amapDemo" :amap-manager="amapManager" :zoom="zoom" :center="center" :events="events"
              class="amap-demo">
       <el-amap-circle v-for="item in circle" :key="'circle'+item.id" :center="item.center" :radius="item.radius"
-                      :editable="false"
-                      :fillColor="item.color" :strokeColor="item.color" :strokeOpacity="item.strokeOpacity"
-                      :strokeWeight="item.strokeWeight"></el-amap-circle>
+                      :editable="false" :fillColor="item.color" :strokeColor="item.color" :strokeOpacity="item.strokeOpacity"
+                      :strokeWeight="item.strokeWeight" :draggable="true" :raiseOnDrag="true"></el-amap-circle>
       <!--地点位置坐标-->
       <el-amap-marker v-for="(item, index) in nearMarkers" :key="'near'+item.id" :position="item.position" :offset="item.offset"
                       :content="item.content" :vid="index"></el-amap-marker>
@@ -30,7 +29,7 @@
       return {
         amapManager,
         map: null,
-        zoom: 10,
+        zoom: 12,
         center: [121.469959, 31.187304],
         events: {
           init(o) {
@@ -42,7 +41,7 @@
         circle: [{
           id: 0,
           center: [121.469959, 31.187304],
-          radius: 90,
+          radius: 200,
           color: "#409EFF",
           strokeOpacity: 0.2,
           strokeWeight: 30
@@ -60,31 +59,29 @@
     methods: {
 
       initMap() {
-        this.map = amapManager.getMap();
         // 地图初始化完成
-        this.$emit("callbackmap", {
-          function: "loadMap"
-        })
+        this.map = amapManager.getMap();
         //定位
         this.selfLocation();
 
-        // 创建点覆盖物
+        //创建点覆盖物
         // var marker = new AMap.Marker({
-        //   position: new AMap.LngLat(121.469959, 31.187304),
+        //   position: new AMap.LngLat(this.circle[0].center[0], this.circle[0].center[1]),
         //   icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-        //   offset: new AMap.Pixel(-13, -30)
+        //   offset: new AMap.Pixel(-13, -30),
+        //   cursor: 'move',
         // });
-        // marker.on('click', this.showPoition);
         // this.map.add(marker);
-
       },
       onComplete(data) {
         const lng = data.position.lng;
         const lat = data.position.lat;
         this.circle[0].center = [lng, lat];
+        this.queryPositionNearDataParent();
       },
       onError(data) {
         this.$message.error('定位失败');
+        this.queryPositionNearDataParent();
       },
       selfLocation() {  //自身定位
         SelfLocation({
@@ -93,10 +90,17 @@
           onError: (val) => this.onError(val),
         });
       },
+      //附近点信息
       positionNearData(data) {
         this.nearMarkers = data;
+      },
+      //调用父类查询附近点
+      queryPositionNearDataParent(){
+        this.$emit("callbackmap", {
+          function: "loadMap",
+          centerLocation:{lng: 121.469959, lat: 31.187304},
+        });
       }
-
     },
     mounted() {
     },

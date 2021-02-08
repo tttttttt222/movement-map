@@ -1,13 +1,13 @@
 <template>
   <div class="position-warp">
-    <div class="position-swiper-warp">
-      <swiper class="swiper" :options="swiperOption" v-if="itemList.length>0">
+    <div class="position-swiper-warp" v-show="dataShow">
+      <swiper class="swiper" :options="swiperOption">
         <swiper-slide v-for="item in itemList" :key="item.id">
-          <Positioncard :pos-data="item"/>
+          <Positioncard :posData="item" :hidSwiper="hiddenSwiper"/>
         </swiper-slide>
       </swiper>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
+<!--      <div class="swiper-button-prev" slot="button-prev"></div>-->
+<!--      <div class="swiper-button-next" slot="button-next"></div>-->
     </div>
 
     <!--    <span @click="user">地点列表</span>-->
@@ -36,16 +36,19 @@
             prevEl: ".swiper-button-prev"
           }
         },
-        itemList: [{id: 1, item_name: "龙华中路-攀岩墙", item_type: 3, item_score: 1},
-          {id: 2, item_name: "龙华中路-11步定点", item_type: 1, item_score: 2.5},
-          {id: 3, item_name: "龙华中路-上墙", item_type: 1, item_score: 3},
-          {id: 4, item_name: "龙华中路攀岩墙", item_type: 1, item_score: 4}],
+        itemList: [{id: 1, itemName: "龙华中路-攀岩墙", itemType: 3, itemScore: 1, itemAdress: ""},
+          {id: 2, itemName: "龙华中路-11步定点", itemType: 1, itemScore: 2.5, itemAdress: ""}],
+        dataShow:false,
       }
     },
     methods: {
        solvePositionData(positionData){
          this.itemList = positionData;
-       }
+         this.dataShow = true;
+       },
+      hiddenSwiper(){
+        this.dataShow = false;
+      }
     },
     mounted() {
       console.log("swiper初始化完成");

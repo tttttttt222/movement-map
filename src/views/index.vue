@@ -38,9 +38,8 @@
       callbackmap(params) {
         params.function && this[params.function](params);
       },
-      loadMap() {
-        var centerLocation = {lng: 121.469959, lat: 31.187304};
-        this.queryLocationNear(centerLocation);
+      loadMap(params) {
+        this.queryLocationNear(params.centerLocation);
       },
       //地点具体获取数据
       async queryLocationItemByLid(lid) {
@@ -49,7 +48,7 @@
           return this.$message.error('获取地点信息失败');
         }
         this.itemList = res.data;
-        console.log("地点信息", this.itemList);
+        // console.log("地点信息", this.itemList);
         this.$refs.position.solvePositionData(this.itemList);
       },
       //附近信息
@@ -59,13 +58,13 @@
           return this.$message.error('获取附近信息失败');
         }
         this.locationList = res.data;
-        console.log("附近信息", this.locationList);
+        // console.log("附近信息", this.locationList);
         this.locationList.forEach(item => {
           item.position = [item.lng, item.lat];
           item.content = "<img src='" + require('../assets/images/position-marker.png') + "'>";
           item.offset = [-30, -60];
-          item.textOffset = [-5, -36];
-          item.textContent = `<div style="width: 50px;font-size=20px;color=#FFF;background-color: red";text-align:center>${item.itemCount}</div>`;
+          item.textOffset = [-28, -58];
+          item.textContent = `<div style="width: 48px;height: 38px;font-size:20px;color:#FFF;text-align:center;padding-top: 10px;">${item.itemCount}</div>`;
           item.events = {
             click: (e) => {
               const data = e.target.getExtData();
@@ -105,7 +104,7 @@
     bottom: 0;
     left: 0;
     width: 0%;
-    background-color: #34393f;
+    background-color: #606266;
     z-index: 12;
     display: none;
     -webkit-transition: all .5s ease 0s;
