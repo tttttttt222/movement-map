@@ -3,14 +3,17 @@
     <el-amap vid="amapDemo" :amap-manager="amapManager" :zoom="zoom" :center="center" :events="events"
              class="amap-demo">
       <el-amap-circle v-for="item in circle" :key="'circle'+item.id" :center="item.center" :radius="item.radius"
-                      :editable="false" :fillColor="item.color" :strokeColor="item.color" :strokeOpacity="item.strokeOpacity"
+                      :editable="false" :fillColor="item.color" :strokeColor="item.color"
+                      :strokeOpacity="item.strokeOpacity"
                       :strokeWeight="item.strokeWeight" :draggable="true" :raiseOnDrag="true"></el-amap-circle>
       <!--地点位置坐标-->
-      <el-amap-marker v-for="(item, index) in nearMarkers" :key="'near'+item.id" :position="item.position" :offset="item.offset"
+      <el-amap-marker v-for="(item, index) in nearMarkers" :key="'near'+item.id" :position="item.position"
+                      :offset="item.offset"
                       :content="item.content" :vid="index"></el-amap-marker>
       <!--文字-->
-      <el-amap-marker v-for="item in nearMarkers" :key="'text'+item.id" :content="item.textContent" :offset="item.textOffset"
-                    :position="item.position" :events="item.events" :extData="item"></el-amap-marker>
+      <el-amap-marker v-for="item in nearMarkers" :key="'text'+item.id" :content="item.textContent"
+                      :offset="item.textOffset"
+                      :position="item.position" :events="item.events" :extData="item"></el-amap-marker>
     </el-amap>
   </div>
 </template>
@@ -77,11 +80,11 @@
         const lng = data.position.lng;
         const lat = data.position.lat;
         this.circle[0].center = [lng, lat];
-        this.queryPositionNearDataParent();
+        this.queryPositionNearDataParent(this.circle[0].center);
       },
       onError(data) {
         this.$message.error('定位失败');
-        this.queryPositionNearDataParent();
+        this.queryPositionNearDataParent([121.469959, 31.187304]);
       },
       selfLocation() {  //自身定位
         SelfLocation({
@@ -95,10 +98,10 @@
         this.nearMarkers = data;
       },
       //调用父类查询附近点
-      queryPositionNearDataParent(){
+      queryPositionNearDataParent(location) {
         this.$emit("callbackmap", {
           function: "loadMap",
-          centerLocation:{lng: 121.469959, lat: 31.187304},
+          centerLocation: {lng: location[0], lat: location[1]},
         });
       }
     },
