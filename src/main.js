@@ -11,7 +11,22 @@ import 'element-ui/lib/theme-chalk/index.css';
 import store from './plugin/vuexConfig'
 
 Vue.use(ElementUI);
-axios.defaults.baseURL = 'http://127.0.0.1:8788/movement/front/';
+// axios.defaults.baseURL = 'http://127.0.0.1:8788/movement/front/';
+// axios.defaults.baseURL = 'http://118.24.103.34:8788/movement/front/';
+// let protocol = window.location.protocol; //协议
+let host = window.location.host; //主机
+let reg = /^localhost+/;
+if(reg.test(host)) {
+  //动态请求地址             协议               主机
+  axios.defaults.baseURL = "http://127.0.0.1:8788/movement/front/";
+  // axios.defaults.baseURL = protocol + "//" + host  +":5000";
+  //若本地项目调试使用
+} else {
+  axios.defaults.baseURL = 'http://118.24.103.34:8788/movement/front/';
+}
+
+
+
 // axios.interceptors.request.use((config)=>{
 //   console.log(config);
 //   config.headers.Authorization = window.sessionStorage.getItem('token');
