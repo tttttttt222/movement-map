@@ -3,7 +3,7 @@ import VueAMap from "vue-amap";
 
 Vue.use(VueAMap);
 VueAMap.initAMapApiLoader({
-  key: "0b41917a02f31572042d0ef0a517a435  ",
+  key: "0b41917a02f31572042d0ef0a517a435",
   plugin: [
     "AMap.Autocomplete",
     "AMap.PlaceSearch",

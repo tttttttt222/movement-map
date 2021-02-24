@@ -64,17 +64,6 @@ module.exports = {
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report,
-    proxyTable: {
-      '/api': {
-        // 跨域域名
-        target: 'http://118.24.103.34:8788/',
-        // 是否跨域
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
-    },
+    bundleAnalyzerReport: process.env.npm_config_report
   }
 }
