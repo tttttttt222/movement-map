@@ -18,7 +18,7 @@
         <div class="position-star"><p>{{posData.itemAdress}}</p></div>
       </div>
       <div class="position-img">
-        <img src="../assets/logo.png"/>
+        <img src="../assets/images/cgdd-logo.jpg"/>
       </div>
     </div>
   </div>

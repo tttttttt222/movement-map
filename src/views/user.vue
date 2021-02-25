@@ -4,8 +4,11 @@
       <img src="../assets/images/cgdd-logo.jpg"/>
       <div class="meta">
         <h4 class="name">CGDD</h4>
-        <span>uuuu</span>
+        <span>test</span>
       </div>
+    </div>
+    <div class="user-content">
+      <el-button type="primary" style="margin: 0 auto" @click="toAddInfo">新增</el-button>
     </div>
   </div>
 </template>
@@ -16,6 +19,16 @@
     components: {},
     data() {
       return {}
+    },
+    methods:{
+      toAddInfo(){
+        const router = this.$route;
+        if (router.name === "AddInfo") {
+          this.$router.push({name: "User"});
+        } else {
+          this.$router.push({name: "AddInfo"});
+        }
+      },
     }
   }
 </script>
@@ -37,11 +50,17 @@
       padding-left: 17px;
     }
 
-    .name{
-      color:#909090;
+    .name {
+      color: #909090;
       line-height: 43px;
       font-size: 18px;
     }
+  }
+
+  .user-content{
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 100%;
   }
 
 </style>

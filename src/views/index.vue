@@ -8,7 +8,7 @@
     <Position ref="position"/>
     <!--会员-->
     <div id="children-view" :class="[show ? 'open' : '']">
-      <router-view/>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -30,8 +30,12 @@
     computed: {
       show() {
         const router = this.$route;
-        return router.name === "User" ? true : false;
-      }
+        if(router.name === "User" || router.name === "Login"){
+          return true;
+        }else {
+          return false;
+        }
+      },
     },
     methods: {
       //地图回调
@@ -104,7 +108,7 @@
     bottom: 0;
     left: 0;
     width: 0%;
-    background-color: #606266;
+    background-color: #d5d7db;
     z-index: 12;
     display: none;
     -webkit-transition: all .5s ease 0s;
@@ -119,7 +123,7 @@
     }
   }
 
-  #children-view :hover {
-    width: 60%;
-  }
+  /*#children-view :hover {*/
+  /*  width: 60%;*/
+  /*}*/
 </style>
