@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="user-content">
-      <el-button type="primary" style="margin: 0 auto" @click="toAddInfo">新增</el-button>
+      <el-button type="primary" style="margin: 0 auto" @click="toAddInfo">新增地点</el-button>
     </div>
   </div>
 </template>

@@ -4,15 +4,17 @@ import Index from './views/index'
 import User from './views/user'
 import Login from './views/login'
 import AddInfo from './views/addInfo'
+import AddPosition from './views/addposition'
 
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {path: '/', redirect: '/index'},
-    {path: '/addInfo', name: 'AddInfo', component: AddInfo},
+    {path: '/addInfo', name: 'AddInfo',  meta: {title: '新增地点'},component: AddInfo},
+    {path: '/addposition', name: 'AddPosition',  meta: {title: '新增项目'},component: AddPosition},
     {
-      path: '/index', name: 'Index', component: Index,
+      path: '/index', name: 'Index', meta: {title: '首页'}, component: Index,
       children: [
         {path: '/user', name: 'User', component: User},
         {path: '/login', name: 'Login', component: Login},
