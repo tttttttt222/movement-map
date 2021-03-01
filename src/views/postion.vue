@@ -46,10 +46,10 @@
       }
     },
     methods: {
-       solvePositionData(positionData){
+       solvePositionData(positionData , lid, posType){
          this.itemList = positionData;
-         this.lid = positionData[0].locationId;
-         this.pType = positionData[0].positionType;
+         this.lid = lid;
+         this.pType = posType;
          this.dataShow = true;
        },
       hiddenSwiper(){
@@ -57,7 +57,7 @@
       }
     },
     mounted() {
-      console.log("swiper初始化完成");
+      // console.log("swiper初始化完成");
     }
   }
 </script>

@@ -15,7 +15,7 @@
     },
     methods: {
       toAddPosition(){
-        console.log("locationId / positionType:",this.locationId ,this.positionType);
+        // console.log("locationId / positionType:",this.locationId ,this.positionType);
         this.$router.push({name: "AddPosition", params: {lid: this.locationId, posType: this.positionType}});
       }
     }

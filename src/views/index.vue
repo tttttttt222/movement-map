@@ -46,14 +46,14 @@
         this.queryLocationNear(params.centerLocation);
       },
       //地点具体获取数据
-      async queryLocationItemByLid(lid) {
+      async queryLocationItemByLid(lid, posType) {
         const {data: res} = await this.$http.post(`item/queryByLid/${lid}`);
         if (res.meta.status !== 1) {
           return this.$message.error('获取地点信息失败');
         }
         this.itemList = res.data;
         // console.log("地点信息", this.itemList);
-        this.$refs.position.solvePositionData(this.itemList);
+        this.$refs.position.solvePositionData(this.itemList, lid, posType);
       },
       //附近信息
       async queryLocationNear(centerLocation) {
@@ -72,7 +72,7 @@
           item.events = {
             click: (e) => {
               const data = e.target.getExtData();
-              this.queryLocationItemByLid(data.id);
+              this.queryLocationItemByLid(data.id, data.positionType);
             }
           }
         });
