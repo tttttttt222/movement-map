@@ -1,6 +1,6 @@
 <template>
   <div class="addInfo">
-    <div class="bg-purple-dark" @click="backIndex"><i class="el-icon-back"></i></div>
+    <headback/>
     <el-form ref="addInfoRef" :model="addInfo" :rules="addFormRules"
              label-width="80px" style="margin:10px; padding: 20px">
 
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+  import headback from "../components/headback";
+  import {backIndex} from "../plugin/common";
 
   var valiFloatNumber = (rule, value, callback) => {//包含小数的数字
     let reg = /^[+-]?(0|([1-9]\d*))(\.\d+)?$/g;
@@ -48,6 +50,7 @@
 
   export default {
     name: "addInfo",
+    components: {headback},
     data() {
       return {
         addInfo: {
@@ -69,9 +72,6 @@
       }
     },
     methods: {
-      backIndex() {
-        this.$router.push({name: "Index"});
-      },
       resetInfoForm() {
         this.$refs.addInfoRef.resetFields();
       },
@@ -83,7 +83,7 @@
             return this.$message.error('添加信息失败');
           }
           this.$message.success('添加信息成功!');
-          this.backIndex();
+          backIndex();
         });
       },
     },

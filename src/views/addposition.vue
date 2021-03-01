@@ -1,6 +1,6 @@
 <template>
   <div class="add-position">
-    <div class="bg-purple-dark" @click="backIndex"><i class="el-icon-back"></i></div>
+    <headback/>
     <el-form ref="addPositionRef" :model="addPosition" :rules="addPositionFormRules"
              label-width="80px" style="margin:10px; padding: 20px">
 
@@ -34,9 +34,13 @@
 </template>
 
 <script>
+  import headback from "../components/headback";
+  import {backIndex} from "../plugin/common";
+
 
   export default {
     name: "addPosition",
+    components: {headback},
     data() {
       return {
         addPosition: {},
@@ -72,7 +76,7 @@
             return this.$message.error('添加信息失败');
           }
           this.$message.success('添加信息成功!');
-          this.backIndex();
+          backIndex();
         });
       },
     },

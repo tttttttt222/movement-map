@@ -45,7 +45,7 @@
           id: 0,
           center: [121.469959, 31.187304],
           radius: 200,
-          color: "#409EFF",
+          color: "#275a9b",
           strokeOpacity: 0.2,
           strokeWeight: 30
         }],
