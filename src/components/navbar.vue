@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <ul>
-      <li><i class="icon icon-search"></i></li>
+      <li><i class="icon icon-search" @click="searchPos"></i></li>
       <li><i class="icon icon-location" @click="selfLocation"></i></li>
       <li><i class="icon icon-user" @click="toUser"></i></li>
     </ul>
@@ -25,6 +25,9 @@
       },
       selfLocation() {
          this.$store.commit("location/SLEF_LOCATION");
+      },
+      searchPos(){
+        this.$router.push({name: "Search"});
       }
     }
   }

@@ -106,6 +106,8 @@
       }
     },
     mounted() {
+      var ce = this.$store.getters.getterCenterPos;
+      console.log("vuexpos:" + ce);
     },
     watch: {
       "$store.state.location.selfLocation"(val) {
