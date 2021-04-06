@@ -91,7 +91,7 @@
         this.queryPositionNearDataParent(this.circle[0].center);
       },
       onError(data) {
-        this.$message.error('定位失败');
+        // this.$message.error('定位失败');
         this.queryPositionNearDataParent([121.469959, 31.187304]);
       },
       selfLocation() {  //自身定位
