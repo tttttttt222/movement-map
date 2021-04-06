@@ -82,8 +82,7 @@
         if(selectCity.lng != null){
           location = [selectCity.lng , selectCity.lat];
         }
-        this.$store.commit('location/POS_CENTER', location);
-        this.$router.push({name: "Index"});
+        this.$router.push({name: "Index",params: { location: location }});
       }
 
     },

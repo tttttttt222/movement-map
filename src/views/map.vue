@@ -57,6 +57,7 @@
           position: [121.469959, 31.187304],
           itemCount: '0'
         }],
+        routeLocation: [],
       };
     },
     methods: {
@@ -64,9 +65,16 @@
       initMap() {
         // 地图初始化完成
         this.map = amapManager.getMap();
-        //定位
-        this.selfLocation();
 
+        if (this.routeLocation != null && this.routeLocation.length > 1) {
+          //不需要定位
+          this.map.setCenter(this.routeLocation);
+          this.circle[0].center = this.routeLocation;
+          this.queryPositionNearDataParent(this.circle[0].center);
+        }else{
+          //定位
+          this.selfLocation();
+        }
         //创建点覆盖物
         // var marker = new AMap.Marker({
         //   position: new AMap.LngLat(this.circle[0].center[0], this.circle[0].center[1]),
@@ -106,8 +114,7 @@
       }
     },
     mounted() {
-      var ce = this.$store.getters.getterCenterPos;
-      console.log("vuexpos:" + ce);
+      this.routeLocation = this.$route.params.location;
     },
     watch: {
       "$store.state.location.selfLocation"(val) {

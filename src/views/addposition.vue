@@ -76,7 +76,7 @@
             return this.$message.error('添加信息失败');
           }
           this.$message.success('添加信息成功!');
-          backIndex();
+          this.$router.push({name: "Index"});
         });
       },
     },
