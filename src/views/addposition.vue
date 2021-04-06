@@ -13,7 +13,8 @@
       </el-form-item>
 
       <el-form-item label="评分" prop="itemScore">
-        <el-rate v-model="addPosition.itemScore" allow-half show-score text-color="#ff9900" score-template="{value}"></el-rate>
+        <el-rate v-model="addPosition.itemScore" allow-half show-score text-color="#ff9900"
+                 score-template="{value}"></el-rate>
       </el-form-item>
 
       <el-form-item label="项目类型" prop="itemType">
@@ -47,19 +48,21 @@
         posObj: {
           1: 'parkour',
           2: 'freeRun',
-          3: '摄影',
         },
         addPositionFormRules: {
           itemName: [{required: true, message: '项目名称', trigger: 'blur'}],
           itemScore: [{required: true, message: '评分', trigger: 'blur'}],
           itemType: [{required: true, message: '请输选择项目类型', trigger: 'blur'}],
         },
+        lArr: [],
       }
     },
     mounted() {
       this.addPosition.locationId = this.$route.params.lid;
       this.addPosition.positionType = this.$route.params.posType;
-      console.log(this.addPosition);
+      this.lArr = this.$route.params.lArr;
+      // console.log(this.addPosition);
+      // console.log(this.lArr);
     },
     methods: {
       backIndex() {
@@ -76,7 +79,7 @@
             return this.$message.error('添加信息失败');
           }
           this.$message.success('添加信息成功!');
-          this.$router.push({name: "Index"});
+          this.$router.push({name: "Index", params: {location: this.lArr}});
         });
       },
     },

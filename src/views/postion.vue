@@ -5,7 +5,7 @@
         <swiper-slide v-for="item in itemList" :key="item.id">
           <Positioncard :posData="item" :hidSwiper="hiddenSwiper"/>
         </swiper-slide>
-        <swiper-slide><Positionaddbtn :locationId="lid" :positionType="pType"/></swiper-slide>
+        <swiper-slide><Positionaddbtn :locationId="lid" :positionType="pType" :locationArr="lArr"/></swiper-slide>
       </swiper>
 <!--      <div class="swiper-button-prev" slot="button-prev"></div>-->
 <!--      <div class="swiper-button-next" slot="button-next"></div>-->
@@ -43,14 +43,16 @@
         dataShow:false,
         lid:0,
         pType:0,
+        lArr:[],
       }
     },
     methods: {
-       solvePositionData(positionData , lid, posType){
+       solvePositionData(positionData , lid, posType,locationArr){
          this.itemList = positionData;
          this.lid = lid;
          this.pType = posType;
          this.dataShow = true;
+         this.lArr = locationArr;
        },
       hiddenSwiper(){
         this.dataShow = false;

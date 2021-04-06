@@ -83,7 +83,7 @@
             return this.$message.error('添加信息失败');
           }
           this.$message.success('添加信息成功!');
-          this.$router.push({name: "Index",params: { location: [this.addInfo.lng,this.addInfo.lat]}});
+          this.$router.push({name: "Index", params: {location: [this.addInfo.lng, this.addInfo.lat]}});
         });
       },
     },
@@ -107,7 +107,7 @@
       font-size: 3em;
       margin: 0.06em;
       text-align: center;
-      cursor:pointer
+      cursor: pointer
     }
   }
 
